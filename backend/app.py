@@ -1,19 +1,32 @@
 from flask import Flask, request, render_template
 import joblib
 import numpy as np
+from flask import Flask
+import os
 
 
-app = Flask(__name__, template_folder='C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/templates')
+# Get the absolute path to the 'models' folder
+BASE_DIR = os.path.dirname(__file__)  # This gets the folder where app.py is located
+MODELS_DIR = os.path.join(BASE_DIR, "models")  # Adjust if your models folder is elsewhere
+
+
+
+
+app = Flask(__name__, template_folder=TEMPLATES_DIR)
+
 
 # ✅ Load Rainfall Models
-rain_model = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/rain_model.pkl")
-rain_scaler = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/rain_scaler.pkl")
-rain_label_encoder = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/rain_label_encoder.pkl")
+rain_model = joblib.load(os.path.join(MODELS_DIR, "rain_model.pkl"))
+rain_scaler = joblib.load(os.path.join(MODELS_DIR, "rain_scaler.pkl"))
+rain_label_encoder = joblib.load(os.path.join(MODELS_DIR, "rain_label_encoder.pkl"))
 
 # ✅ Load Irrigation Models
-irrigation_model = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/irrigation_model.pkl")
-irrigation_scaler = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/irrigation_scaler.pkl")
-irrigation_label_encoder = joblib.load("C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/models/irrigation_label_encoder.pkl")
+irrigation_model = joblib.load(os.path.join(MODELS_DIR, "irrigation_model.pkl"))
+irrigation_scaler = joblib.load(os.path.join(MODELS_DIR, "irrigation_scaler.pkl"))
+irrigation_label_encoder = joblib.load(os.path.join(MODELS_DIR, "irrigation_label_encoder.pkl"))
+app = Flask(__name__, template_folder='C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/templates')
+
+
 
 # ✅ Home Route
 @app.route('/')
