@@ -8,7 +8,7 @@ import os
 # Get the absolute path to the 'models' folder
 BASE_DIR = os.path.dirname(__file__)  # This gets the folder where app.py is located
 MODELS_DIR = os.path.join(BASE_DIR, "models")  # Adjust if your models folder is elsewhere
-
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")  
 
 
 
