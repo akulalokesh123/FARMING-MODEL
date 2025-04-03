@@ -1,19 +1,15 @@
 from flask import Flask, request, render_template
 import joblib
 import numpy as np
-from flask import Flask
 import os
 
+# ✅ Get the absolute path to the 'models' and 'templates' folders
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))  # Get current directory
+MODELS_DIR = os.path.join(BASE_DIR, "models")  # Path to models
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")  # Path to templates
 
-# Get the absolute path to the 'models' folder
-BASE_DIR = os.path.dirname(__file__)  # This gets the folder where app.py is located
-MODELS_DIR = os.path.join(BASE_DIR, "models")  # Adjust if your models folder is elsewhere
-TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")  
-
-
-
+# ✅ Initialize Flask App
 app = Flask(__name__, template_folder=TEMPLATES_DIR)
-
 
 # ✅ Load Rainfall Models
 rain_model = joblib.load(os.path.join(MODELS_DIR, "rain_model.pkl"))
@@ -24,9 +20,6 @@ rain_label_encoder = joblib.load(os.path.join(MODELS_DIR, "rain_label_encoder.pk
 irrigation_model = joblib.load(os.path.join(MODELS_DIR, "irrigation_model.pkl"))
 irrigation_scaler = joblib.load(os.path.join(MODELS_DIR, "irrigation_scaler.pkl"))
 irrigation_label_encoder = joblib.load(os.path.join(MODELS_DIR, "irrigation_label_encoder.pkl"))
-app = Flask(__name__, template_folder='C:/Users/akula/OneDrive/Desktop/PRECISION FARMING/backend/templates')
-
-
 
 # ✅ Home Route
 @app.route('/')
@@ -77,7 +70,7 @@ def predict_irrigation():
 
         # Prediction
         prediction = irrigation_model.predict(scaled_data)
-        
+
         # Display as "Irrigation Needed" or "No Irrigation Needed"
         result = "Irrigation Needed" if prediction[0] == 1 else "No Irrigation Needed"
 
@@ -86,5 +79,7 @@ def predict_irrigation():
     except Exception as e:
         return render_template('results.html', rain_output="", irrigation_output=str(e))
 
+# ✅ Run the Flask App (for deployment, remove debug=True)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)
+
