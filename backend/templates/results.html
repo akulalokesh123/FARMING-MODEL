@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Output</title>
+    <style>
+        /* Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .output {
+            background: #f1f1f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .output h2 {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .output p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            color: #fff;
+            background: #007bff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Styling for error messages */
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prediction Results</h1>
+
+    {% if rain_output %}
+        <div class="output">
+            <h2>🌧️ Rainfall Prediction</h2>
+            <p>{{ rain_output }}</p>
+        </div>
+    {% endif %}
+
+    {% if irrigation_output %}
+        <div class="output">
+            <h2>🚜 Irrigation Prediction</h2>
+            <p>{{ irrigation_output }}</p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="output error">
+            <h2>❗ Error</h2>
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+
+    <a href="/" class="btn">Back to Home</a>
+</div>
+
+</body>
+</html>
